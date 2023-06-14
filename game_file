@@ -44,6 +44,7 @@ game_status = {
     'met_musician': 0,
     'musician_quest' : False,
     'entered_musician_chamber': 0,
+    'elephant': True,
     
     #game mechanic counters
     'status': True,
@@ -424,9 +425,6 @@ def game_start():
             print("COMPANION ADDED: ",game_status['dog_name'])
             print("(+5 AP, +5 SP. Bonus damage against canine enemies.)")
             print("")
-            print("--CURRENT COMPANIONS--")
-            print(*game_status['companion'], sep =', ')
-            print("")
             break
         elif answer.lower() in ['no', 'n']:
             game_status['dog'] = False
@@ -462,9 +460,9 @@ def carthage():
     game_status['location']='first room'
     print('  __                                 ') 
     time.sleep(0.1)
-    print(' |""|  ___    _   __                   ')   
+    print(' |""|  ___    _   __               ~~      ')   
     time.sleep(0.1)
-    print(' |""|_|"""|__|"| |""|         _._ _     ')
+    print(' |""|_|"""|__|"| |""|         _._ |_     ')
     time.sleep(0.1)
     print(' |""|"|"""|""|"|_|""| __     (__((_(    ')
     time.sleep(0.1)
@@ -483,12 +481,10 @@ def carthage():
         #no event, just take the normal path to the cave
         if 0 <= x < 50:
             if game_status['path'] == 0 :
-                print('You walk through the narrow streets of the city.')
-                print("The sun hangs heavy overhead, bathing the towering white citadel of the city in golden light.")
+                print("You walk through the narrow streets of the city. The sun hangs heavy overhead, bathing the towering white citadel of the city in golden light.")
                 print("Who could ever wish to destroy this?")
             if game_status['path'] == 1 :
-                print('Even despite the siege and the mournful nature of the city, the Agora is still full of people.')
-                print("Still, it seems to have changed...")
+                print("Despite the siege, the Agora is full of people. Still, it seems to have changed...")
                 print("Before, the markets would be filled with people-- merchants selling spices from the East, smoked meats and fish, fruit and fine linen.")
                 print("Now the merchants remain, but they hawk other wares... smuggled weaponry, rotting food, meat of mysterious origin...")
             if game_status['path'] == 2 :
@@ -862,16 +858,15 @@ def carthage():
     time.sleep(0.1)
     print(' :   | ||#|#||  :   :    /\/\        :    | |  ')
     time.sleep(0.1)
-    print('   : | ||,|, |   :    /\/::::\/\_        :| | ')
+    print('   : | ||,|, |   :    /\/::::\/\_     __: | | ')
     time.sleep(0.1)
-    print(' :  \\|\ # #//"//    |:::::::::::|  : :  /  | ')
+    print(' :  \\|\ # #//"//    |:::::::::::|  :[__]/  | ')
     time.sleep(0.1)
-    print('   / >\\> <\/\< ___\\|:/\:/\::/\:|//____/   | ')
+    print('   / >\\> <\/\< ___\\|:/\:/\::/\:|//__||_/  | ')
     time.sleep(0.3)
     print(" ")
-    print("Finally, you have reached the caverns.")
-    print("They loom ominously before you, dark and forboding.")
-    print("In front of the shrine you see a large hand painted sign.")
+    print("Finally, you have reached the caverns. You can just spy the dark entrance tucked between a short waterfall and a towering tree.")
+    print("There is no trail leading to it and its entrance is unadored, save for a single hand-painted sign that reads:")
     print("")
     print("  ____________________________")
     print(" |  ________________________  | ")
@@ -883,8 +878,45 @@ def carthage():
     print(" | |________________________| | ")
     print(" |____________________________| ")
     print("")
-    print("You briefly consider during back, but all that awaits you at home is death by Roman troops. You continue onward.")
+    print("You briefly consider turing back, but all that awaits you at home is death by Roman troops. You continue onward.")
     cont()
+    print(" ")
+    print("Just as you are about to head into the cave entrance, you spy something beneath the tree.")
+    if game_status['elephant'] == True:
+        print("You gasp. It is a war elephant! You had thought they were all dead, but here is one standing, right before your very eyes!")
+        print("It is undoubtedly alive, but it looks tired and old. It lies in repose, his head lolling from side to side. It's armor, however, is polished and new, shining as if only forged yesterday.")
+        print("It's tusks are encased in glittering bronze, with long, sharp bayonettes attached at the ends. You examine them carefully. It seems you could easily remove them without hurting the old beast, and then use the covers as a weapon for yourself. It would certainly be better than what you have now.")
+        print(" ")
+        print("WAR ELEPHANTS TUSK")
+        print("The standard war regalia for Carthage's famous War Elephants.")
+        print("Provides bonus against human enemies.")
+        print("+14 AP, +14 SP")
+        print(" ")
+        print("Do you take its tusk as a weapon?")
+        while True:
+            answer = input(" ")
+            print(" ")
+            if answer.lower() in ['yes','y','take','take tusk','take war elephants tusk',"take elephants tusk","take elephant's tusk","take war elephant's tusk"]:
+                print("The elephant looks at you with sad eyes as you gently remove the covering. You pet it gently, in thanks for its help.")
+                game_status['weapon'] = 'War Elephants Tusk'
+                game_status['original_weapon'] = 'War Elephants Tusk'
+                game_status['sacrifice'] -= 10
+                game_status['elephant'] = False
+                break
+            if answer.lower() in ['no','n']:
+                print("It is perhaps best not to touch it. Elephants are the sacred beast of Carthage, after all. To find one here of all places means it may very well be a familiar of Ba'al Hammon itself!")
+                break
+            if answer.lower() in ['inventory','status','info']:
+                get_info()
+            if answer.lower() == 'help':
+                get_help()
+            else:
+                print("Please try again.")
+    else:
+        print("You gasp. It is a war elephant! ")
+        print("With a deep sadness, you realize that it is not moving. It is dead.")
+        print("For some reason, you are filled with a deep sense of guilt.")
+    print("With one more look back at the elephant, you slip up and into the entrance to the cave.")
     return
 def out_at_sea():
     import time
@@ -1256,23 +1288,36 @@ def end_game():
     print("||| |||||| || |||| |||||")
     print("")
     print("You cautiously step forward, entering the massive underground temple. The air thickens with an eerie silence as your heart races. Shadows dance along the ancient walls, and a sense of foreboding engulfs you. Despite the fear, you press on, determined to uncover its mysteries.")
-    cont()
     print("As you wander through the hallowed halls of the ancient temple, your eyes fixate on a grand chamber. There, standing tall, is the imposing statue of Ba'al Haamon, its presence evoking both awe and trepidation.")
     print("You approach the Tophet, you take in its splendor. The sacrificial altar stands adorned with an eerie allure. Abnormal flowers, their petals twisted and vibrant, encircle the stone surface. How are these flowers still living, so deep in this dark cavern?")
     print("Goblets of crimson wine reflect flickering candlelight, whispering of offerings to come. Fragments of exotic fruits, precious gems, and tokens of devotion rest at its edges, awaiting the ancient rituals to commence.")
+    cont()
     print("")
-    if game_status['met_baal'] == True:
+    if game_status['met_baal'] == False and game_status['elephant'] == True:
         print("BAAL: Who is this? One of my flock, but I have not seen you before...")
+    elif game_status['met_baal'] == False and game_status['elephant'] == False:
+        print("BAAL: Ah, the defiler has entered my chamber!")
+        print(" ")
+        print("Defiler? You do not know what he speaks of, but think it may be better not to ask.")
+    elif game_status['met_baal'] == True and game_status['elephant'] == False:
+        print("BAAL: The defiler has returned! Here to disappoint me with more shallow offerings?")
+        print(" ")
+        print("He seems to remember you.")
     else: 
         print("BAAL: You have returned... I hope you will not disappoint me this time.")
-    print("")
+        print(" ")
+        print("He seems to remember you.")
     print("You quickly fall to your knees, prostrating yourself before the towering statue of Ba'al Hammon.")
     print("")
     print("YOU: Oh, mighty Ba'al Hammon, hear my plea! The Roman horde threatens Carthage's existence. I implore you to lend your divine strength and protect our great city. May your power guide us to victory and preserve our land.")
     print("")
-    print("The god remains silent.")
-    print("Glancing up at the Tophet, you remember yourself.")
-    print("A god does not bestow favor without recieving something in return...")
+    if game_status['elephant'] == False:
+        print("BAAL: You dare ask for my favor, after you have so sullied my temple? HA! If you truly seek my favor, you will need to pay a high price...")
+        print(" ")
+    else:
+        print("The god remains silent.")
+        print("Glancing up at the Tophet, you remember yourself.")
+        print("A god does not bestow favor without recieving something in return...")
     print("")
     print('Would you like to offer your inventory as a sacrifice?')
     while True:
@@ -2835,7 +2880,7 @@ def get_total_AP_SP():
         else: 
             APbuff = APbuff + 11
             SPbuff = SPbuff + 11
-    if game_status['weapon'] == 'War Elephant Tusk':
+    if game_status['weapon'] == 'War Elephants Tusk':
         if game_status['chamber'] in ['baboons','blemyae','fisherman','collector_hoplite_version','collector_weapon_version','collector_coin_version','collector_spear_version']:
             APbuff = APbuff + 19
             SPbuff = SPbuff + 14
@@ -3089,6 +3134,8 @@ def game_reset():
     game_status['base_SP'] = 5
     game_status['bonus_AP'] = 0
     game_status['bonus_SP'] = 0
+    if game_status['elephant'] == False:
+        game_status['sacrifice'] = -10
     #statuses
     game_status['character_status'] = []
     game_status['poison_count'] = 5
@@ -3098,7 +3145,6 @@ def game_reset():
     game_status['legendary_kill_count'] = 0
     game_status['flee_count'] = 0
     game_status['chamber_count'] = 0
-    game_status['sacrifice'] = 0
     #companion mechanics
     game_status['dog'] = False
     game_status['dog_name'] = 0
@@ -3841,7 +3887,7 @@ def run_collector():
                 else:
                     print("Please try again.")
             break
-        elif answer.lower() in ['sword', 'broken sword', 'grab broken sword','grab weapon','grab sword','grab axe','grab spider leg','grab leg','take sword','take axe','take spider leg','take spiderleg','grab spiderleg','dagger','small dagger','take small dagger']:
+        elif answer.lower() in ['sword', 'broken sword', 'grab broken sword','grab weapon','grab sword','grab axe','grab spider leg','grab leg','take sword','take axe','take spider leg','take spiderleg','grab spiderleg','dagger','small dagger','take small dagger',"poor sword",'take poor sword',"grab poor sword","war elephants tusk","elephants tusk","elephant's tusk","war elephant's tusk","take war elephant's tusk","grab war elephant's tusk","take war elephant's tusk","take elephant's tusk","take elephants tusk","take tusk","grab tusk"]:
             print("Fuck The Hoplite. You rush to grab your weapon.")
             print("")
             get_total_AP_SP()
