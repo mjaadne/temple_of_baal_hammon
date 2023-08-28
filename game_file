@@ -930,8 +930,8 @@ def carthage():
     print(" ")
     print("Just as you are about to head into the cave entrance, you spy something beneath the tree.")
     if game_status['elephant'] == True:
-        print("You gasp. It is a war elephant! You had thought they were all dead, but here is one standing, right before your very eyes!")
-        print("It is undoubtedly alive, but it looks tired and old. It lies in repose, his head lolling from side to side. It's armor, however, is polished and new, shining as if only forged yesterday.")
+        print("You gasp. It is a war elephant! You had thought they were all dead, but here is one right before your very eyes!")
+        print("The ancient beast lies in repose, his head lolling from side to side. Despite it's ancient appearance, it's armor appears polished and new, shining as if only forged yesterday.")
         print("It's tusks are encased in glittering bronze, with long, sharp bayonettes attached at the ends. You examine them carefully. It seems you could easily remove them without hurting the old beast, and then use the covers as a weapon for yourself. It would certainly be better than what you have now.")
         print(" ")
         print("WAR ELEPHANTS TUSK")
@@ -939,6 +939,9 @@ def carthage():
         print("Provides bonus against human enemies.")
         print("+14 AP, +14 SP")
         print(" ")
+        if game.status['dog_status'] == True: 
+            print(game.status['dog_name'], "growls low in his throat, as if in warning. Perhaps it is better to leave the old beast alone...")
+            print(" ")
         print("==========================================")
         print("Do you take its tusk as a weapon?")
         while True:
@@ -963,6 +966,9 @@ def carthage():
                 print("TOTAL AP: ", game_status['bonus_AP'] + game_status['base_AP'],"+ dice roll")
                 print("TOTAL SP: ",game_status['bonus_SP'] + game_status['base_SP'],"+ dice roll")
                 print(" ")
+                cont()
+                print("As you step towards the cavern, you suddenly feel a tremble rising up from beneath the ground.")
+                print("You look down at the weapon in your hands. Perhaps you shouldn't have taken it?")
                 break
             if answer.lower() in ['no','n']:
                 print("It is perhaps best not to touch it. Elephants are the sacred beast of Carthage, after all. To find one here of all places means it may very well be a familiar of Ba'al Hammon itself!")
