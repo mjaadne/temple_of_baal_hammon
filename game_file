@@ -939,7 +939,7 @@ def carthage():
         print("Provides bonus against human enemies.")
         print("+14 AP, +14 SP")
         print(" ")
-        if game.status['dog_status'] == True: 
+        if game.status['dog'] == True: 
             print(game.status['dog_name'], "growls low in his throat, as if in warning. Perhaps it is better to leave the old beast alone...")
             print(" ")
         print("==========================================")
