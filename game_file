@@ -62,7 +62,7 @@ game_status = {
     'how_to': 0,
     'intro': 0,
     'abandoned': 0,
-    'location': 'caverns',
+    'location': 'home',
     'path': 4,
     'chamber': 0,
     'left_count':0,
