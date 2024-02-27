@@ -60,46 +60,61 @@ game_status = {
     
     #game mechanic counters
     'status': True,
+    #default: 'alive'
     'life': 'alive',
-    'warning': 0,
-    'how_to': 0,
+    #default: all 0
+    'warning': 1,
+    'how_to': 1,
     'intro': 0,
     'abandoned': 0,
+    #default: 'home'
     'location': 'home',
+    #default: all 0
     'path': 0,
     'chamber': 0,
     'left_count':0,
     'right_count':0,
+    #default: 1
     'level': 1,
+    #default: all 0
     'tanit_shrine': 0,
     'lost_adventurer': 0,
     'moloch_shrine': 0,
     'met_cave_merchant': 0,
 
     #quest counters
+    #default: false
     'god_killer': False,
     'fisherman_quest': False,
+    #default: true
     'scholar_quest': True,
+    #default: false
     'mother_quest': False,
     'ghost_quest': False,
     'hoplite_quest': False,
     'collector_quest': False,
+    #default: empty
     'collector_version': [],
+    #default: 0
     'versus_collector': 0,
+    #default: false
     'physician_quest': False,
     'chimera_quest': False,
     'chimera_lives': False,
     'musician_quest': False,
+    #default: TBD
     'cave_merchant_inventory': ['1 flask','poor sword','new torch','dog eyes'],
     'city_merchant_inventory': ['1 flask','poor sword','new torch','dog eyes'],
+    #default: true
     'cerberus_lives': True,
     'basilisk_lives': True,
     'mother_lives': True,
     'minotaur_lives': True,
+    #default: 0 
     'spider_count': 0,
 
-    #enemy stats and counters
-    'baal': [50,50],
+    #enemy AP/SP stats and encounter counters
+    'baal': [45,45],
     'spiders': [10,10],
     'spider_room_count': 0,
     'rats': [10,10],
@@ -117,14 +132,14 @@ game_status = {
     'cerberus_count': 0,
     'basilisk': [30,15],
     'basilisk_count': 0,
-    'minotaur': [37,37],
+    'minotaur': [35,35],
     'minotaur_count': 0,
     'halfform': [20,5],
     'halfform_count': 0,
     'fisherman': [27,27],
     'mother': [30,20],
     'mother_count': 0,
-    'ghost': [40,25],
+    'ghost': [35,25],
     'collector': [0,0],
     'chimera':[30,5],
 
@@ -137,8 +152,8 @@ game_status = {
 #game loops through this function to determine level function (listed below)
 #level functions determine specific room/battle/encounter
 def main():
-    if game_status['warning'] == 0:
-        trigger_warning()
+    #if game_status['warning'] == 0:
+    #    trigger_warning()
     if game_status['how_to'] == 0:
         how_to()
     while game_status['status'] == True:
@@ -166,8 +181,6 @@ def trigger_warning():
     print('WARNING: This game contains textual descriptions of violence, including violence against women, animals, and children.')
     print('It also includes themes of slavery, war, genocide, black magic, and human sacrifice.')
     game_status['warning'] = 1
-    print(" ")
-    answer = input('If you would like to continue to the game, hit any key.')
     print(" ")
     return
 def intro_sequence():
@@ -257,7 +270,7 @@ def how_to():
             print("There are 4 main endings, 3 secret endings, and many ways to die.") 
             print(" ")
             print("Hit any button to continue.")
-            x = input(" ")
+            cont()
             print("")
             print("")
             print("CONTROLS")
@@ -333,8 +346,8 @@ def game_start():
     print("There is not much use for gold inside the caverns, but it may be valuable if you meet a merchant on the way.")
     print("Or, if not, it may be a good sacrificial gift to Ba'al Hammon.")
     print("")
-    cont()
     print("Finally, you grab your weapon.")
+    cont()
     print("In these final days of the siege, the government has ordered all weaponry provisions be sent to guard the walls of the city.")
     print("As such, it is difficult to find quality equipment for you to use, but you have managed to put together a few options.")
     print(" ")
@@ -352,7 +365,7 @@ def game_start():
     print(" ")
     print("SMALL DAGGER")
     print("A small dagger used for field dressing.")
-    print("It is not a particularly effective as a weapon, but it is easier to run with.")
+    print("It is not a particularly effective weapon, but it is easier to run with.")
     print("Easier to weild against very small enemies.")
     print("+5 AP, +10 SP")
     print(" ")
@@ -481,9 +494,7 @@ def game_start():
 def carthage():
     game_status['location']='first room'
     print('  __                                 ') 
-    time.sleep(0.1)
     print(' |""|  ___    _   __               ~~      ')   
-    time.sleep(0.1)
     print(' |""|_|"""|__|"| |""|         _._ |_     ')
     time.sleep(0.1)
     print(' |""|"|"""|""|"|_|""| __     (__((_(    ')
@@ -521,125 +532,142 @@ def carthage():
             game_status['path'] += 1
             if game_status['met_hoplite'] == False:
                 game_status['met_hoplite'] = True
-                print("Walking through the city streets, you spy down the lane a Hoplite on his way to somewhere. You notice he is dressed in the shimmering bronze armor of the Sacred Band. You had thought they were disbanned ages ago?")
-                print("Regardless, it would be best to not draw his attention. As you walk, you keep your head down, your things tucked beneath your clothes. However, as you pass, you feel his gaze land upon you.")
+                print("Walking through the city streets, you spy down the lane a Hoplite on his way to somewhere. You notice he is dressed in the shimmering bronze armor of the Sacred Band.")
+                print("It would not do to be caught by a member of the Sacred Band. He could try to stop you.")
+                print("You keep your head down and attempt to walk quickly, but as you pass him, he lightly grabs you by the wrist.")
                 print("")
-                print("HOPLITE: My friend, where are you going to so quickly? ")
-                cont()
+                print("HOPLITE: My friend, where are you going to so quickly? I can see you are dressed for a battle. Do you mean to fight the Romans yourself?")
                 print("")
-                print("You do not answer, instead trying rush past him.")
-                print("Before you can get far, he grabs you by the wrist.")
+                print("You glance up at him. He wears a friendly smile.")
                 print("")
-                cont()
-                print("HOPLITE: My friend, my friend, please do not rush. I see you are going somewhere important.")
-                print("YOU: I am.")
-                print("HOPLITE: Where might that be? Ha, do you mean to fight the Romans yourself?")
-                print("")
-                print("You are unsure what to do. If caught lying to a member of the Sacred Band, it could mean your head.")
-                cont()
-                print("Reluctantly, you decide on the truth.")
-                print("")
-                print("YOU: I am  going to the caverns... to find the Temple of Ba'al Hammon.")
-                print("HOPLITE: Ba'al Hammon? If you wish to pray, my friend, why not go to the Byrsa? It is safer than the caves.")
-                print("YOU: I cannot. It must be the caverns. it is the only place--")
-                print("HOPLITE: -- speak no further, my friend.")
-                print("")
-                print("You shrink back, afraid you have said too much, but The Hoplite only smiles, his bright white teeth shining beneath his bronze helm.")
-                print(" ")
-                cont()
-                print("HOPLITE: It is my duty to protect the people of Carthage. If what you say is true, then perhaps I should go with you.")
-                print("")
-                if 'The Physician' in game_status['companion']:
-                    print("The Physician nudges you, making a not-so-subtle gesture to ignore this fellow and leave him behind. The Hoplite catches it, and scowls at him.")
+                print("You are unsure what to do. If you tell him the truth, there is a small chance he could try to stop you. But perhaps his heart would be swayed by the valor of your quest, and he would desire to help...")
                 if game_status['dog'] == True:
                     print("For what it is worth, ",game_status['dog_name'],"seems to like him. He runs up, and The Hoplite lays a gentle hand on his head.")
-                print("")
+                if 'The Physician' in game_status['companion']:
+                    print("For his part, the Physician does not seem pleased. You can feel him gently tugging you along, trying to be discrete.")
                 print("==========================================")
-                print('Will you let The Hoplite join your party?')
+                print("Do you tell him the truth?")
                 while True:
                     answer = input("")
                     print("==========================================")
                     print(" ")
                     if answer.lower() in ['yes','y']:
+                        #ADD randomized option leading to potential arrest if you tell the truth (low prob, approx 5%)
                         game_status['companion'].append('The Hoplite')
                         game_status['hoplite_quest'] = True
-                        print("You nod in agreement. The Hoplite seems pleased.")
+                        print("You take a deep breath and explain to him that you are on your way to the temple of Ba'al Hammon to pray to Carthage.")
+                        print("The Hoplite goes quiet, thinking deeply.")
                         print("")
-                        print("HOPLITE: Let us go then! I have heard troubling rumors of a looming attack... we may not have much time.")
+                        roll_dice()
+                        print("")
+                        print("The Hoplite grabs you roughly by the shoulder and smiles.")
+                        print("")
+                        print("HOPLITE: Let us go then! I will help you on your quest.")
+                        print("")
+                        if 'The Physician' in game_status['companion']:
+                            print("Out of the corner of your eye, you spy The Physician scowling.")
                         print(" ")
-                        cont()
                         print("COMPANION ADDED: The Hoplite")
                         print("(The Hoplite provides +10 AP bonus)")
                         break
                     elif answer.lower() in ['no','n']:
-                        print("YOU: I am sorry, but I must go alone.")
-                        print("HOPLITE: Ah... I understand. Be safe, my friend.")
+                        print("You lie.")
                         print("")
-                        print("He nods gravely at you, and then continues on his way.")
+                        print("YOU: I am only going to the market.")
+                        print("HOPLITE: But you look as if you are ready for battle.")
+                        print("YOU: With Romans at the gates, everyone is.")
+                        print("")
+                        print("He looks to the ground. Perhaps he feels guilty for not protecting the city better.")
+                        print("Silently, you continue on your way.")
+                        if 'The Physician' in game_status['companion']:
+                            print("The Physician nudges you and gives you a knowing nod. He seems to agree with your decision.")
+                        print("")
                         break
                     elif answer.lower() in ['inventory','status','info','info']:
                         get_info()
                     elif answer.lower() == 'help':
                         get_help()
                     else :
-                        print('Please try again.')
+                        print('Please try again.')               
                 cont()
         #meet Physician
         elif 45 <= x < 60 and game_status['met_physician'] == False:
             game_status['path'] += 1
             if game_status['met_physician'] == False:
                 game_status['met_physician'] = True
-                print("You pass by a small crowd that has gathered in the street.")
-                print("Edging your way around the side, the crowd suddenly erupts into cries of joy and applause.")
+                print("As you are walking down the street, you spy a small crowd that has gathered near a market stall. As you approach, the crowd suddenly erupts into cries of joy and applause.")
                 print("'He is saved! He is saved!' they cry. You crane your neck but cannot see anything until suddenly, the  crowd parts.")
                 print("Out of the center strolls a tall, thin man, dressed in long flowing robes. His hands are stained with blood.")
                 print("Behind him lies a young man, bandaged and just begining to sit up.")
                 print("As The Physician leaves, young woman grabs him by the sleeve.")
-                cont()
                 print(" ")
                 print("WOMAN: Please, sir, my father is sick, he--")
-                print("PHYSICIAN: -- Goodness, are you ALL ill? ")
-                print("WOMAN: Please! If you will only look at him.")
+                print("PHYSICIAN: My god, are you ALL ill? ")
+                print("WOMAN: Please! If you will only look at him!")
                 print("")
-                print("The Physician pushes past her dismissively.")
-                cont()
-                print("")
-                print("PHYSICIAN: Apologies, but if I took the time to heal all of you, I'd never sleep! I have important work to do. I must find an escort to get me to the caverns.")
-                print(" ")
-                print("The crowd gasps, then begins to whisper amongst themselves.")
-                print("You step forward.")
-                print(" ")
-                cont()
-                print("YOU: You are going to the caverns? The one's that house the Temple of Baal Hammon?")
-                print("PHYSICIAN: There's a temple in there as well? I hadn't known... but yes, I am, so if you please--")
-                print(" ")
-                print("It could be beneficial to have someone capable of healing with you.")
+                print("The Physician rushes to get away from the crowd, walking straight towards you. He seems desperate to get away.")
+                print("You spy a small alleyway just behind you. Perhaps you could help him slip away?")
                 print(" ")
                 print("==========================================")
-                print('Do you ask him to join?')
+                print('Do you help him get away?')
                 while True:
                     answer = input("")
                     print("==========================================")
                     print(" ")
                     if answer.lower() in ['yes','y']:
                         game_status['companion'].append('The Physician')
-                        print("YOU: I am going to the caverns.")
+                        print("You try to catch his attention and signal towards the alley behind you. He sees your signal and pushes his way towards you as you help to part the crowd.")
+                        print("The crowd tries to follow but the space is too narrow. You rush through and then emerge onto the street. Breathing heavily, The Physician looks you up and down, finally taking note of your odd attire.")
                         print("")
-                        print("The Physician stops and turns to you. His eyes light up in a manic sort of glee.")
+                        print("PHYSICIAN: You on your way somewhere?")
                         print("")
-                        print("PHYSICIAN: Are you now? Well then, let's go together.")
-                        print("YOU: Why are you going to the caverns? ")
-                        print("PHYSICIAN: My business is my own. Just keep me alive and I'll keep you alive, agreed?")
+                        print("After a moment of hesitation, you decide to tell the truth. After all, you should always tell your doctor the truth.")
                         print("")
-                        print("With that, he joins your party, and you set off to the caverns.")
+                        print("YOU: I am on my way to Temple of Baal Hammon.")
+                        print("PHYSICIAN: At the Byrsa?")
+                        print("YOU: No... There one just outside the city walls. I intend to go there.")
+                        print("")
+                        print("The Physician's eyes go wide, before he hunches away, quietly muttering to himself.")
+                        if 'The Hoplite' in game_status['companion']:
+                            print("The Hoplite quietly signals to get your intention.")
+                            print("")
+                            print("HOPLITE (whispering): He does not seem quite right... perhaps we should take our leave.")
+                            print("")
+                        print("Suddenly, The Physician turns back to you, his eyes alight with determination.")
+                        print("")
+                        print("PHYSICIAN: I shall accompany you! I have heard of that place, and it is quite dangerous! A doctor on your expedition could be very helpful, I think!")
                         print(" ")
-                        cont()
+                        print("==========================================")
+                        print('Do you let him join?')
+                        while True:
+                            answer = input("")
+                            print("==========================================")
+                            print(" ")
+                            if answer.lower() in ['yes','y']:
+                                print("PHYSICIAN: Excellent! I knew you seemed reasonable.")
+                                break
+                            elif answer.lower() in ['no','n']:
+                                print("You try to tell him no, but he speaks over you.")
+                                print("")
+                                print("PHYSICIAN: Nonsense! Really, I don't mind at all! Come! We must hurry.")
+                                print("")
+                                print("He begins down the road. It seems he has invited himself.")
+                                break
+                            elif answer.lower() in ['inventory','status','info','info']:
+                                get_info()
+                            elif answer.lower() == 'help':
+                                get_help()
+                            else :
+                                print('Please try again.')  
+                        if 'The Hoplite' in game_status['companion']:
+                            print("The Hoplite looks to you with a discomfitted look, but says nothing.")
+                        print("")
                         print("COMPANION ADDED: The Physician")
                         print("(The Physician provides +3 AP, +3 SP and can heal Injuries)")
                         break
                     elif answer.lower() in ['no','n']:
-                        print("No, it is best to keep your intentions secret.")
-                        print("You let The Physician pass by you, then continue on your way alone. ")
+                        print("You decide it is best not to help him. It is too much trouble.")
+                        print("After a few moments, the insistence of the woman with a sick father wins out. The Physician begrudgingly goes along with her. Probably for the best.")
                         break
                     elif answer.lower() in ['inventory','status','info','info']:
                         get_info()
@@ -652,12 +680,12 @@ def carthage():
         elif 60 <= x < 70 and game_status['met_musician_carthage'] == False:
             game_status['met_musician_carthage'] = True
             game_status['path'] += 1
-            print('You walk along the walls of the city. They are lined with apricot trees that are just beginning to bloom.')
+            print('You walk along the walls of the city. They are lined with apricot trees that are just beginning to bloom. It smells sweet and the light filters through the leaves.')
             print('As you near the beginning of the southern section, you hear a sound... it is the soft strumming of a kithara.')
-            print("Approaching closer, you see The Musician sat upon the ground beneath a tree, it's leaves blackened and dried as if it were dead.")
-            print("They wear the veil of a woman, but seem to have the face of a man. Confusing...")
-            print("You pass by without a word, but then the Musician calls out to you.")
-            cont()
+            print("Approaching closer, you spy a figure sitting beneath a tree-- the tree appears to be dead, its leaves blackened and dry.")
+            print("The Musician is playing a kithara. They wear the veil of one of the priestesses of the Necropolis.")
+            print("Perhaps it is a funeral... You try to pass by without disturbing them.")
+            print("However, as you do, they call out to you:")
             print("")
             if game_status['met_musician'] == 0:
                 print("MUSICIAN: On your way to the caves, are you?")
@@ -679,7 +707,6 @@ def carthage():
                 print("YOU: Going... back? This is the first time I've gone there.")
                 print("MUSICIAN: Are you sure?")
                 print("")
-            cont()
             print("A cryptic answer. Something about this person is very off-putting.")
             print("You are not sure why, but for some reason you sense this person may be important.")
             print(" ")
@@ -694,12 +721,8 @@ def carthage():
                     print("")
                     print("The Musician laughs, still strumming absent mindedly upon their kithara. The song sounds sad.")
                     print("")
-                    print("MUSICIAN: I think not. It is not my way to travel around with... people such as yourself.")
-                    print("YOU: I see...")
-                    cont()
-                    print("MUSICIAN: But perhaps we will encounter each other again? I am always easy to find.")
-                    print("YOU: Oh?")
-                    print("MUSICIAN: Of course! Simply go left, then left, then left, and then left again, and there I will be.")
+                    print("MUSICIAN: I think not. It is not my way to travel around with... people such as yourself. But perhaps we will encounter each other again! ")
+                    print("MUSICIAN: I am always easy to find: simply go left four times, and there I will be.")
                     if game_status['met_musician'] == 0:
                         print("YOU: Wont that just take me in a circle?")
                         print("")
@@ -744,37 +767,29 @@ def carthage():
             game_status['path'] += 1
             if game_status['met_fisherman'] == False: 
                 game_status['met_fisherman'] = True
-                print('Nearing the Cothon, you spy a fisherman sat upon a crate. He is beckoning you, and you go.')
+                print('Your walk brings you to the shores of the Cothon. As you approach, you spy a fisherman sat upon a crate. He is beckoning you.')
                 print("")
                 print("FISHERMAN: Such times upon us... such dreadful times, yes?")
                 print("YOU: Indeed...")
                 print("FISHERMAN (whispering): Perhaps you seek to leave this strife behind? I can help you, if you like...")
                 print("")
-                print("You had heard of men like this... the Romans have blocked the port, but small fishing vessels often pass by unnoticed.")
-                print("You do not intend to be so cowardly.")
-                cont()
-                print("YOU: No, thank you. I do not intend to flee.")
-                print("FISHERMAN: I would think not! You look too brave to do so. But may I ask, where are you going?")
-                print("YOU: The caverns, if you must know.")
-                print("FISHERMAN: The caverns! A dangerous place, most certainly... but I can help you with that as well.")
+                print("You had heard of men like this. The Romans have blocked the port, but small fishing vessels often pass by unnoticed. Men like this have made a business of ferrying people out of the city, so they can escape the coming slaughter.")
+                print("His offer is tempting but you cannot give up yet.")
                 print("")
-                print("You pause. Perhaps it is best to hear him out...")
-                print("The fisherman smiles. He is missing many teeth.")
-                print("")
-                cont()
-                print("FISHERMAN: Oh yes, 8 levels of a winding labyrinth, filled with terrifying beasts! But you know, there is another way...")
-                print("YOU: Oh?")
-                print("FISHERMAN: It is not well known except among my kind, but yes... there is a secret entrance, only accessible from the sea.")
-                print("FISHERMAN: It opens up directly onto the third level of the caves. It would save you quite a bit of time...")
+                print("YOU: No, thank you. I do not intend to flee. I am on my way to the caverns, to pray at the underground temple of Baal Hammon.")
+                print("FISHERMAN: The caverns! Very brave to go there... but I can help you with that as well! You see, there is a secret entrance, only accessible from the sea.")
+                print("FISHERMAN: It opens up directly onto LEVLE THREE of the caves. It would save you quite a bit of time...")
+                print("FISHERMAN: I can take you, for a small fee. Those gold coins of your would do nicely, I think!")
                 print("YOU: Interesting... And you would take me?")
                 print("FISHERMAN: Oh yes! For a small fee, of course... Those gold coins of your would do nicely, I think!")
-                print(" ")
+                print("")
                 print("You contemplate the offer.")
+                print(" ")
                 if 'The Hoplite' in game_status['companion']:
                     print("The Hoplite nudges you, subtly shaking his head. It seems he does not trust this man.")
                 print("")
                 print("==========================================")
-                print('Will you go with the fisherman')
+                print('Will you go with the fisherman?')
                 while True:
                     answer = input("")
                     print("==========================================")
@@ -811,12 +826,10 @@ def carthage():
             print("Striding quickly through the Agora, you accidentally collide with a large, imposing merchant. You quickly apologize, but he puts up two thick hands to stop you. With a sly smile from beneath his bushy beard, he seizes the opportunity, showcasing his wares.")
             print("")
             print("CITY MERCHANT: Brave adventurer! You seem to be dressed for danger-- are you properly prepared?")
+            print("MERCHANT: If you are on an adventure, take one of these! Very special, very hard to get in the city now...")
             print("")
             print("He has seen right through you. Though you wish to move on quickly, you DO feel quite under prepared... perhaps it is best to hear him out?")
             print("You step up to his stall to examine some items.The merchant has already laid out three items to show you.")
-            cont()
-            print("")
-            print("MERCHANT: If you are on an adventure, take one of these! Very special, very hard to get in the city now...")
             print("")
             print("POOR SWORD")
             print("A cheap but useable blade. Better than your broken one.")
@@ -1311,7 +1324,6 @@ def the_caverns():
                 print("(-5 AP, +5 SP)")
                 cont()
                 game_status['torch'] = False
-        new_torch_status = game_status['torch']
         chamber_description()
         battle()
     if game_status['life'] == 'alive':
@@ -1409,13 +1421,22 @@ def end_game():
     if game_status['dog'] == True:
         print(game_status['dog_name']," approaches the tophet, sniffing around its base, his tail wagging excitedly.")
     cont()
+    print("You fall to your knees, prostrating yourself before the towering statue of Ba'al Hammon.")
+    print("")
+    print("Suddenly, a booming voice sounds, as if reverberated through the very walls of the temple.")
     print("")
     if game_status['met_baal'] == False and game_status['elephant'] == True:
         print("BAAL: Who is this? One of my flock, but I have not seen you before...")
     elif game_status['met_baal'] == False and game_status['elephant'] == False:
         print("BAAL: Ah, the defiler has entered my chamber!")
-        print(" ")
-        print("Defiler? You do not know what he speaks of, but think it may be better not to ask.")
+        print("YOU: Defiler...?")
+        print("")
+        print("An image flashes across your mind... a war elephant... a sacred beast of carthage standing at the gates to the caverns. A terrible choice was made...")
+        print("")
+        print("BAAL: And now you come to me for help! Humans are always so selfish...")
+        print("")
+        print("You feel a deep sense of guilt, but do not back away. You do not ask for mercy for yourself, only to save the city!")
+        print("")
     elif game_status['met_baal'] == True and game_status['elephant'] == False:
         print("BAAL: The defiler has returned! Here to disappoint me with more shallow offerings?")
         print(" ")
@@ -1425,19 +1446,12 @@ def end_game():
         print(" ")
         print("He seems to remember you.")
     print("")
-    if game_status['dog'] == True:
-        print(game_status['dog_name']," begins to bark and you command him to silence.")
-    print("You fall to your knees, prostrating yourself before the towering statue of Ba'al Hammon.")
-    print("")
     print("YOU: Oh, mighty Ba'al Hammon, hear my plea! The Roman horde threatens Carthage's existence. I implore you to lend your divine strength and protect our great city. May your power guide us to victory and preserve our land.")
+    print("BAAL: Is that so? Hm... I maybe persuaded.")
     print("")
-    if game_status['elephant'] == False:
-        print("BAAL: You dare ask for my favor, after you have so sullied my temple? HA! If you truly seek my favor, you will need to pay a high price...")
-        print(" ")
-    else:
-        print("The god remains silent.")
-        print("Glancing up at the Tophet, you remember yourself.")
-        print("A god does not bestow favor without recieving something in return...")
+
+    print("A god does not bestow favor without recieving something in return... Pushing down your fear, you move towards the Tophet. ")
+    print("The god remains silent, awaiting your offering.")
     print("")
     if game_status['musician_hint'] == True:
         print("You move to give up your weapon, but then recall the advice of The Musician. Is this truly right? Does Baal Hammon really deserve your tribute, or your sacrifice...?")
@@ -1500,7 +1514,7 @@ def end_game():
         elif choice.lower() in ['no','n','no offering',"dont give offering","don't give offering"]:
             print("You offer nothing at the Tophet.")
             break
-        elif choice.lower() in ['kill','attack','attack baal hammon','kill baal hammon','attack god','kill god','fight','fight baal hammon',"fight ba'al hammon","battle","battle baal","battle god","battle the god","battle baal hammon"]:
+        elif choice.lower() in ['sin','ultimate sin','kill','attack','attack baal hammon','kill baal hammon','attack god','kill god','fight','fight baal hammon',"fight ba'al hammon","battle","battle baal","battle god","battle the god","battle baal hammon"]:
             run_god_killer()
         elif choice.lower() in ['inventory','status','info','info']:
             get_info()
@@ -1751,9 +1765,9 @@ def game():
         time.sleep(0.1)
         print(" ( \   / )| (   ) || )   ( |  | (      | (   ) || (    \/   ) (   ")
         time.sleep(0.1)
-        print(" \ (_) / | |   | || |   | |  | |      | |   | || (_____    | |   ")
+        print("  \ (_) / | |   | || |   | |  | |      | |   | || (_____    | |   ")
         time.sleep(0.1)
-        print("  \   /  | |   | || |   | |  | |      | |   | |(_____  )   | |   ")
+        print("   \   /  | |   | || |   | |  | |      | |   | |(_____  )   | |   ")
         time.sleep(0.1)
         print("    ) (   | |   | || |   | |  | |      | |   | |      ) |   | |   ")
         time.sleep(0.1)
@@ -2331,12 +2345,10 @@ def chamber_description():
     elif game_status['chamber'] == 'blemyae':
         if game_status['torch'] == True:
             if game_status['blemyae_count'] == 0 and game_status['blemyae_room_count'] == 0:
-                print("The first thing you notice is the smell of smoke. ")
-                print("The chamber is massive, with stepped crevasses up its side and a long drop down to an underground river below. ")
-                print("Dotted throughout you can make out the source of the smell—little fires, not much more than embers, burn in the darkness. ")
-                print("Not only that but… are those huts? ")
-                print("You see a figure moving among the fires. It looks like a person, but you realize with a gasp, the figure has no head! ")
-                print("It turns towards the flames and you can see it now—one large eye staring out from the center of its chest.")
+                print("This chamber is very large and multileveled. Through the darkness, you can spy small bonfires lit throughout. They fill the chamber with the smell of smoke.") 
+                print("Huddled aroudn the fires you see small figures... are you those people?")
+                print("No! You realize with a gasp that the figures have no heads! ")
+                print("The figures wander about headless. As one steps towards the flame, you spy a large eye at the center of its chest.")
                 print("Not humans— HEADLESS MEN!")
                 game_status['blemyae_room_count'] += 1
             elif game_status['blemyae_count'] == 0 and game_status['blemyae_room_count'] > 0: 
@@ -2991,7 +3003,7 @@ def choose_path():
             companion = game_status['companion']
             print("As you exit the odd chamber, you suddenly find your companions back with you again.")
             print(game_status['dog_name'],"bounds up to you, barking and licking you excitedly, as if you had been gone for a very long time.")
-            print(companion[2]," however, does seem to notice your absence. You decide not to mention it.")
+            print(companion[1],"however, hasn't noticed your absence. You decide not to mention it.")
         if game_status['companion'] == 1 and game_status['dog'] == True:
             print("As you exit the odd chamber, ",game_status['dog_name'],"bounds up to you, barking and licking you excitedly, as if you had been gone for a very long time.")
         if game_status['companion'] == 1 and game_status['dog'] == False:
@@ -3277,12 +3289,8 @@ def get_total_AP_SP():
             APbuff = APbuff + 10
             SPbuff = SPbuff + 25
     if game_status['weapon'] == 'Falcata':
-        if game_status['chamber'] in ['shadows','baal']:
-            APbuff = APbuff + 30
-            SPbuff = SPbuff + 15
-        else:
-            APbuff = APbuff + 20
-            SPbuff = SPbuff + 10
+        APbuff = APbuff + 40
+        SPbuff = SPbuff + 40
     if 'Hoplites Finger' in game_status['items']:
         APbuff = APbuff +5
     if game_status['dog'] == True:
@@ -3956,7 +3964,7 @@ def run_moloch_shrine():
     print("The room is centered around a small, pedestal platform. You cautiously approach the eerie structure, its surroundings adorned with withered plants. Around you, the walls ripple like water, undulating with an otherworldly energy, leaving you captivated by the mysterious presence that permeates the space.")
     print("You hear the strumming of a kithara, soft and echoic, as if played from a great distance.")
     if 'The Scholar' in game_status['companion'] and game_status['moloch_explanation'] == False:
-        print("The Scholar approaches the shrine, closely inspecting markings along the base of the pedestal before crying uot in excitement.")
+        print("The Scholar approaches the shrine, closely inspecting markings along the base of the pedestal before crying out in excitement.")
         print(" ")
         print("SCHOLAR: This is a shrine to Moloch!")
         print("YOU: Moloch?")
@@ -3967,7 +3975,7 @@ def run_moloch_shrine():
             print("The Girl curls a hand into your robes. You pat her head reassuringly.")
     if game_status['moloch_explanation'] == True:
         print("You pass through the shrine as quickly as possible, looking anywhere but at the sacrificial pedestal. This place gives you the creeps.")
-    movement = random.randint(1,8)
+    movement = random.randint(3,8)
     print("As you move toward the exit of the chamber, a strange sensation overcomes you.")
     if 'The Scholar' in game_status['companion'] and game_status['moloch_explanation'] == False:
         game_status['moloch_explanation'] = True
@@ -5017,7 +5025,7 @@ def run_god_killer():
     print("Boom.")
     time.sleep(0.3)
     print("Boom!")
-    time.sleep(0.3)
+    time.sleep(0.9)
     print("The floor falls away. The earth itself crumbles. You are thrust into the eather, into the godly realm, with the magnificent form of Ba'al Hammon standing before you.")
     print("")
     print("BAAL: Foolish mortal... you dare to stand against me? You dare to take up arms against your own god?!")
@@ -5026,20 +5034,16 @@ def run_god_killer():
     print("")
     game_status["chamber"] = 'baal'
     run_god_killer_combat()
-    if game_status['god_killer'] == True:
-        print("You have succeeded!")
-        game_status['life'] = 'killer'
-        game()
-    else :
-        print("You have failed!")
+    print("You have failed!")
+    while game_status['life'] == 'alive':
         if game_status['flask'] > 0:
             print(" ")
             print("==========================================")
             print('Use a flask to revive and try again?')
-            answer = input(" ")
-            print("==========================================")
-            print(" ")
             while True:
+                answer = input(" ")
+                print("==========================================")
+                print(" ")
                 if answer.lower() in ['revive','use flask','take flask','try again','again','yes','y']:
                     print("You take a flask.")
                     flask_status = len(game_status['companion'])
@@ -5049,6 +5053,8 @@ def run_god_killer():
                         print("Suddenly, you find yourself and ", game_status['companion']," revitalized!")
                     elif flask_status > 1:
                         print("Suddenly, you find yourself and your companions revitalized!")
+                        print("")
+                    game_status['flask'] -= 1
                     break
                 elif answer.lower() in ['no','n']:
                     game_status['life'] == 'failure'
@@ -5058,17 +5064,11 @@ def run_god_killer():
                 elif answer.lower() == 'help':
                     get_help()
                 else: 
-                    print("Please try typing again.")
+                    print("Please try again.")
             run_god_killer_combat()
-        else: 
-            if game_status['god_killer'] == True:
-                print("You have succeeded!")
-                game_status['life'] = 'killer'
-                game()
-            else :
-                print("You have failed...")
-                game_status['life'] = 'failure'
-                game()
+        else :
+            game_status['life'] = 'failure'
+            game()
 def run_god_killer_combat():
     #gives stat info so player may make an informed choice
     get_total_AP_SP()
@@ -5079,9 +5079,7 @@ def run_god_killer_combat():
     print("TOTAL AP: ", game_status['bonus_AP'] + game_status['base_AP'],"+ dice roll")
     print("TOTAL SP: ",game_status['bonus_SP'] + game_status['base_SP'],"+ dice roll")
     dice_attack = random.randint(0,10)
-    dice_speed = random.randint(0,10)
     attack = dice_attack + game_status['bonus_AP'] + game_status['base_AP']
-    speed = dice_speed + game_status['bonus_SP'] + game_status['base_SP']
     #opponent stats are pulled from dictionary, index_0 = attack, index_1 = flee
     if 'Eyes of Cerberus' in game_status['items']:
         print("The Eyes of Cerberus reveals to you the enemy's secrets...")
@@ -5165,9 +5163,12 @@ def run_god_killer_combat():
     print("                        (` ^'`-' )")
     if attack >= opponent[0]:
         game_status['god_killer'] = True
+        print("You have succeeded!")
+        game_status['life'] = 'killer'
+        game()
     else: 
         game_status['god_killer'] = False
-    return
+        return
 
 
 
